@@ -12,11 +12,11 @@ public class Fruit {
     @Column(name="name")
     private String name;
     @Column(name="kgAmount")
-    private int kiloAmount;
+    private int weight;
 
-    public Fruit(String name, int kiloAmount) {
+    public Fruit(String name, int weight) {
         this.name = name;
-        this.kiloAmount = kiloAmount;
+        this.weight = weight;
     }
 
     public int getId() {
@@ -35,12 +35,12 @@ public class Fruit {
         this.name = name;
     }
 
-    public int getKiloAmount() {
-        return kiloAmount;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setKiloAmount(int kiloAmount) {
-        this.kiloAmount = kiloAmount;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Fruit {
         return "Fruit{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", kiloAmount=" + kiloAmount +
+                ", weight=" + weight +
                 '}';
     }
 }

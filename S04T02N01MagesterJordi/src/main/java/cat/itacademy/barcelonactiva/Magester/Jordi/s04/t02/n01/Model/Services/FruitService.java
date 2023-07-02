@@ -1,11 +1,28 @@
 package cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Services;
 
+import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Domain.Fruit;
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Repository.FruitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Service
 public class FruitService {
+
+    private final FruitRepository fruitRepository;
+
     @Autowired
-    private FruitRepository fruitRepository;
+    public FruitService(FruitRepository fruitRepository) {
+        this.fruitRepository = fruitRepository;
+    }
+
+    @GetMapping("/fruits")
+    public ResponseEntity<List<Fruit>> getAll() {
+        return ResponseEntity.ok(fruitRepository.findAll());
+    }
+
+
 }
