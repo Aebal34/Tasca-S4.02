@@ -48,8 +48,17 @@ public class FruitController {
     }
 
     @PostMapping("/add")
-    public void postFruit(@RequestBody Fruit fruit){
-        fruitService.save(fruit);
+    public ResponseEntity<String> postFruit(@RequestBody Fruit fruit){
+        ResponseEntity<String> response = ResponseEntity.internalServerError().body("An unexpected error has occurred.");
+        if(fruit.getName().length() == 0 || fruit.getName().isEmpty() || fruit.getName().matches(".*[a-zA-Z0-9].*")){
+            response = ResponseEntity.badRequest().body("Error 400. Incorrect name. Fruit not added.");
+        }else {
+            fruitService.save(fruit);
+            if(fruitService.getById(fruit.getId()).getBody() != null){
+                response = ResponseEntity.accepted().body("201. Fruit correctly added.");
+            }
+        }
+        return response;
     }
 
     @DeleteMapping("/delete/{id}")
