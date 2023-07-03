@@ -28,7 +28,7 @@ public class FruitController {
             if(response.getBody().isEmpty()){
                 response = ResponseEntity.notFound().build(); //If no item in list, http error 404, not found
             }else{
-                response = ResponseEntity.ok(fruitService.getAll().getBody());
+                response = ResponseEntity.ok(response.getBody());
             }
         }else {
             response = ResponseEntity.notFound().build();
@@ -37,8 +37,14 @@ public class FruitController {
     }
 
     @GetMapping("/getOne/{id}")
-    public Fruit getById(@PathVariable int id){
-        return fruitService.getById(id).getBody();
+    public ResponseEntity<Fruit> getById(@PathVariable int id){
+        ResponseEntity<Fruit> response = fruitService.getById(id);
+        if(response.getBody() != null){
+           response = ResponseEntity.notFound().build();
+        }else{
+            response = ResponseEntity.ok(response.getBody());
+        }
+        return response;
     }
 
     @PostMapping("/add")
