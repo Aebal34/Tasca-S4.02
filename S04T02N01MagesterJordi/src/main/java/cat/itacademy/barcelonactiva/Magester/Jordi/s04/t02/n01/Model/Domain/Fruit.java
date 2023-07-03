@@ -14,6 +14,9 @@ public class Fruit {
     @Column(name="kgAmount")
     private int weight;
 
+    public Fruit(){
+        super();
+    }
     public Fruit(String name, int weight) {
         this.name = name;
         this.weight = weight;

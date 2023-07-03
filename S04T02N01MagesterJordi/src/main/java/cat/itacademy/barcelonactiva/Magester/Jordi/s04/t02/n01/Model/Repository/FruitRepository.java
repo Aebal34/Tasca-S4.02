@@ -10,8 +10,4 @@ import java.util.*;
 @Repository
 public interface FruitRepository extends JpaRepository<Fruit, Integer> {
 
-    //We define 3 more methods to filter by amount of Kg
-    List<Fruit> getByMoreThanWeight(int kg);
-    List<Fruit> getByLessThanWeight(int kg);
-    List<Fruit> getByWeight(int kg);
 }
