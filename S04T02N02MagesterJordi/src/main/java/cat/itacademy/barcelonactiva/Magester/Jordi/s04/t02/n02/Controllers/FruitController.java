@@ -28,9 +28,9 @@ public class FruitController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> update(int id, @RequestParam(required = false) String name, @RequestParam(required = false) Integer amountKg) {
+    public ResponseEntity<String> update(@RequestParam int id, @RequestParam(required = false) String name, @RequestParam(required = false) Integer amountKg) {
         ResponseEntity<String> response = ResponseEntity.internalServerError().body("An unexpected error occurred.");
-        if (fruitService.findFruit(id) != null) {
+        if (fruitService.findFruit(id).getBody() != null) {
             if(name != null){
                 if (name.matches("/.*[a-zA-Z0-9.*]/")) {
                     response = ResponseEntity.badRequest().body("Wrong name. Please try again.");
@@ -50,5 +50,13 @@ public class FruitController {
         return response;
     }
 
-
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(@RequestParam int id){
+        if(fruitService.findFruit(id).getBody() != null){
+            fruitService.deleteFruit(id);
+            return ResponseEntity.ok("Fruit deleted successfully.");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

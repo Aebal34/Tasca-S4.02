@@ -36,4 +36,7 @@ public class FruitService {
     }
 
 
+    public void deleteFruit(int id) {
+        fruitRepository.deleteById(id);
+    }
 }
