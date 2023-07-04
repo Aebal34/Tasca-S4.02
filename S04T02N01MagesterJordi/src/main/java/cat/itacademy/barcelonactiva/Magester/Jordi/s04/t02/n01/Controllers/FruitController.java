@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Controllers;
 
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Domain.Fruit;
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Services.FruitService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,9 @@ import java.util.List;
 @RequestMapping("/fruits")
 public class FruitController {
 
-    //Annotation Autowired to inject dependency service
     private final FruitService fruitService;
 
+    //Annotation Autowired to inject dependency service
     @Autowired
     public FruitController(FruitService fruitService) {
         this.fruitService = fruitService;
@@ -62,13 +63,27 @@ public class FruitController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteOne(@PathVariable int id){
-        fruitService.deleteFruit(id);
+    public ResponseEntity<String> deleteOne(@PathVariable int id){
+        ResponseEntity<String> response = ResponseEntity.notFound().build();
+
+        if(fruitService.getById(id) != null){
+            fruitService.deleteFruit(id);
+            response = ResponseEntity.ok("Fruit found and deleted.");
+        }
+        return response;
     }
 
     @PutMapping("/update")
-    public void update(int id, @RequestParam(required = false) String newName, @RequestParam(required = false) int newWeight){
-        fruitService.updateFruit(id, newName, newWeight);
+    public ResponseEntity<String> update(int id, @RequestParam(required = false) String newName, @RequestParam(required = false) int newWeight){
+        ResponseEntity<String> response = ResponseEntity.notFound().build();
+        if(fruitService.getById(id) != null){
+            if(newName.matches(".*[a-zA-Z0-9].*")){
+                response = ResponseEntity.badRequest().body("Error 400. Incorrect name. Fruit not added.");
+            }else {
+                fruitService.updateFruit(id, newName, newWeight);
+                response = ResponseEntity.ok("Fruit successfully updated.");
+            }
+        }
+        return response;
     }
-
 }
