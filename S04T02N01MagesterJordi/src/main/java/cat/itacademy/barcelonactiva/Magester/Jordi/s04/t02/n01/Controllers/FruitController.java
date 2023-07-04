@@ -54,8 +54,8 @@ public class FruitController {
         if(fruit.getName().length() == 0 || fruit.getName().isEmpty() || fruit.getName().matches(".*[a-zA-Z0-9].*")){
             response = ResponseEntity.badRequest().body("Error 400. Incorrect name. Fruit not added.");
         }else {
-            fruitService.save(fruit);
             if(fruitService.getById(fruit.getId()).getBody() != null){
+                fruitService.save(fruit);
                 response = ResponseEntity.accepted().body("201. Fruit correctly added.");
             }
         }
@@ -74,13 +74,13 @@ public class FruitController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> update(int id, @RequestParam(required = false) String newName, @RequestParam(required = false) int newWeight){
+    public ResponseEntity<String> update(int id, @RequestParam(required = false) String newName, @RequestParam(required = false) int newAmountKg){
         ResponseEntity<String> response = ResponseEntity.notFound().build();
         if(fruitService.getById(id) != null){
             if(newName.matches(".*[a-zA-Z0-9].*")){
                 response = ResponseEntity.badRequest().body("Error 400. Incorrect name. Fruit not added.");
             }else {
-                fruitService.updateFruit(id, newName, newWeight);
+                fruitService.updateFruit(id, newName, newAmountKg);
                 response = ResponseEntity.ok("Fruit successfully updated.");
             }
         }

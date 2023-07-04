@@ -41,10 +41,10 @@ public class FruitService {
     }
 
     @Transient
-    public void updateFruit(int id, String newName, int newWeight) {
+    public void updateFruit(int id, String newName, int newAmountKg) {
         if(newName.length() != 0){
             fruitRepository.findById(id).get().setName(newName);
         }
-        fruitRepository.findById(id).get().setWeight(newWeight);
+        fruitRepository.findById(id).get().setAmountKg(newAmountKg);
     }
 }
