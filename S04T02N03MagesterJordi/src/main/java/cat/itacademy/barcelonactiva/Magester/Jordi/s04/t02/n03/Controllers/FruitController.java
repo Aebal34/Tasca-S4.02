@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -76,5 +77,12 @@ public class FruitController {
         }
     }
 
-
+    @GetMapping("/getAll")
+    public ResponseEntity<Object> getAll(){
+        if(!fruitService.findAllFruits().isEmpty()){
+            return ResponseEntity.ok(fruitService.findAllFruits());
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("404. Not found.");
+        }
+    }
 }

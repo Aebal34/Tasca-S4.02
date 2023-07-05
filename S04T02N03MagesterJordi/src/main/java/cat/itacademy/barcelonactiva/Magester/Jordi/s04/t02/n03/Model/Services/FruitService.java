@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,5 +40,9 @@ public class FruitService {
 
     public void deleteFruit(String id) {
         fruitRepository.deleteById(id);
+    }
+
+    public List<Fruit> findAllFruits() {
+        return fruitRepository.findAll();
     }
 }
