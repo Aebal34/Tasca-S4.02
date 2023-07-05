@@ -36,4 +36,8 @@ public class FruitService {
         }
         fruitRepository.save(fruit);
     }
+
+    public void deleteFruit(String id) {
+        fruitRepository.deleteById(id);
+    }
 }

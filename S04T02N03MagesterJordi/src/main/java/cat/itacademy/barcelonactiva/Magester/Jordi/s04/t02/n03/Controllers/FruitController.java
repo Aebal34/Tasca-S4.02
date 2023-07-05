@@ -56,4 +56,14 @@ public class FruitController {
         }
         return response;
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable String id){
+        if(fruitService.findById(id).isPresent()){
+            fruitService.deleteFruit(id);
+            return ResponseEntity.ok("200. Fruit deleted successfully.");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("404. Fruit not found.");
+        }
+    }
 }
