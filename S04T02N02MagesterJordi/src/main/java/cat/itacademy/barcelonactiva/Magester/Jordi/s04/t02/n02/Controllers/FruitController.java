@@ -23,7 +23,7 @@ public class FruitController {
 
     @PostMapping("/add")
     public ResponseEntity<String> add(String name, int amountKg) {
-        if (name.length() == 0 || name.matches("^[a-zA-Z0-9]+$")) {
+        if (name.length() == 0 || !name.matches("^[a-zA-Z0-9]+$")) {
             return ResponseEntity.badRequest().body("Wrong name. Please try again");
         } else {
             fruitService.addFruit(new Fruit(name, amountKg));
@@ -36,7 +36,7 @@ public class FruitController {
         ResponseEntity<String> response = ResponseEntity.internalServerError().body("An unexpected error occurred.");
         if (fruitService.findFruit(id).getBody() != null) {
             if(name != null){
-                if (name.matches("^[a-zA-Z0-9]+$")) {
+                if (!name.matches("^[a-zA-Z0-9]+$")) {
                     response = ResponseEntity.badRequest().body("Wrong name. Please try again.");
                 }else{
                     fruitService.updateFruit(id, name, amountKg);
