@@ -51,7 +51,7 @@ public class FruitController {
     @PostMapping("/add")
     public ResponseEntity<String> postFruit(@RequestBody Fruit fruit){
         ResponseEntity<String> response = ResponseEntity.internalServerError().body("An unexpected error has occurred.");
-        if(fruit.getName().length() == 0 || fruit.getName().isEmpty() || fruit.getName().matches(".*[a-zA-Z0-9].*")){
+        if(fruit.getName().length() == 0 || fruit.getName().isEmpty() || fruit.getName().matches("^[a-zA-Z0-9]+$")){
             response = ResponseEntity.badRequest().body("Error 400. Incorrect name. Fruit not added.");
         }else {
             if(fruitService.getById(fruit.getId()).getBody() != null){
@@ -77,7 +77,7 @@ public class FruitController {
     public ResponseEntity<String> update(int id, @RequestParam(required = false) String newName, @RequestParam(required = false) int newAmountKg){
         ResponseEntity<String> response = ResponseEntity.notFound().build();
         if(fruitService.getById(id) != null){
-            if(newName.matches(".*[a-zA-Z0-9].*")){
+            if(newName.matches("^[a-zA-Z0-9]+$")){
                 response = ResponseEntity.badRequest().body("Error 400. Incorrect name. Fruit not added.");
             }else {
                 fruitService.updateFruit(id, newName, newAmountKg);
