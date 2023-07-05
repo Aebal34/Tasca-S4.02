@@ -22,7 +22,7 @@ public class FruitController {
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestParam String name, @RequestParam Integer amountKg){
         if(name != null && amountKg != null){
-            if(name.matches("^[a-zA-Z0-9]+$")){
+            if(!name.matches("^[a-zA-Z0-9]+$")){
                 return ResponseEntity.badRequest().body("400. Wrong name. No symbols in it, please.");
             }else{
                 fruitService.saveFruit(new Fruit(name, amountKg));
@@ -66,4 +66,15 @@ public class FruitController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("404. Fruit not found.");
         }
     }
+
+    @GetMapping("/getOne/{id}")
+    public ResponseEntity<Object> getOne(@PathVariable String id){
+        if(fruitService.findById(id).isPresent()){
+            return ResponseEntity.ok(fruitService.findById(id).get());
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("404. Not found.");
+        }
+    }
+
+
 }
