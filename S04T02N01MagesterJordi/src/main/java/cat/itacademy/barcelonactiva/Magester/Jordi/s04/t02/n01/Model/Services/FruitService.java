@@ -11,7 +11,7 @@ import java.beans.Transient;
 import java.util.List;
 
 @Service
-public class FruitService {
+public class FruitService implements FruitServiceImpl<Fruit>{
 
     private final FruitRepository fruitRepository;
 
@@ -20,20 +20,16 @@ public class FruitService {
         this.fruitRepository = fruitRepository;
     }
 
-    public ResponseEntity<List<Fruit>> getAll() {
+    public ResponseEntity<List<Fruit>> findAllFruits() {
         return ResponseEntity.ok(fruitRepository.findAll());
     }
 
-    public ResponseEntity<Fruit> getById(int id){
+    public ResponseEntity<Fruit> findFruit(int id){
         return ResponseEntity.ok(fruitRepository.findById(id).orElse(null));
     }
 
-    public void save(Fruit fruit){
+    public void saveFruit(Fruit fruit){
         fruitRepository.save(fruit);
-    }
-
-    public void delete(Fruit fruit){
-        fruitRepository.delete(fruit);
     }
 
     public void deleteFruit(int id) {

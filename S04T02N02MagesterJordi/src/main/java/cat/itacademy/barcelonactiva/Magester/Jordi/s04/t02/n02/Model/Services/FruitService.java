@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FruitService {
+public class FruitService implements FruitServiceImpl<Fruit>{
     @Autowired
     FruitRepository fruitRepository;
 
@@ -18,7 +18,7 @@ public class FruitService {
     }
 
 
-    public void addFruit(Fruit fruit) {
+    public void saveFruit(Fruit fruit) {
         fruitRepository.save(fruit);
     }
 

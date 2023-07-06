@@ -26,7 +26,7 @@ public class FruitController {
         if (name.length() == 0 || !name.matches("^[a-zA-Z0-9]+$")) {
             return ResponseEntity.badRequest().body("Wrong name. Please try again");
         } else {
-            fruitService.addFruit(new Fruit(name, amountKg));
+            fruitService.saveFruit(new Fruit(name, amountKg));
             return ResponseEntity.ok("Fruit saved into database successfully.");
         }
     }
