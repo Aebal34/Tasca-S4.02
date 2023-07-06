@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Controllers;
 
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Domain.Fruit;
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Services.FruitService;
+import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n01.Model.Services.FruitServiceImpl;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,10 @@ import java.util.List;
 @RequestMapping("/fruits")
 public class FruitController {
 
-    private final FruitService fruitService;
-
-    //Annotation Autowired to inject dependency service
     @Autowired
-    public FruitController(FruitService fruitService) {
+    private final FruitServiceImpl<Fruit> fruitService;
+
+    public FruitController(FruitServiceImpl<Fruit> fruitService) {
         this.fruitService = fruitService;
     }
 

@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n02.Controllers;
 
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n02.Model.Domain.Fruit;
 import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n02.Model.Services.FruitService;
+import cat.itacademy.barcelonactiva.Magester.Jordi.s04.t02.n02.Model.Services.FruitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,9 @@ import java.util.List;
 public class FruitController {
 
     @Autowired
-    FruitService fruitService;
+    private final FruitServiceImpl<Fruit> fruitService;
 
-    public FruitController(FruitService fruitService) {
+    public FruitController(FruitServiceImpl<Fruit> fruitService) {
         this.fruitService = fruitService;
     }
 
